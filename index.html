@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng ký Hội viên - Hội Cổ động viên Bóng đá Huế</title>
+<meta name="description" content="Đăng ký trở thành Hội viên chính thức của Hội Cổ động viên Bóng đá Huế. Nhận thẻ hội viên vào sân miễn phí và áo hội viên.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Đăng ký Hội viên - Hội Cổ động viên Bóng đá Huế">
+<meta property="og:description" content="Phí hội viên 100.000đ/năm - Nhận thẻ vào sân miễn phí (khán đài B) và áo hội viên.">
+<meta property="og:image" content="assets/hero.jpg">
+<meta property="og:type" content="website">
+
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --red: #E4212B;
+    --red-dark: #A9151D;
+    --navy: #060911;
+    --navy-panel: #0D1220;
+    --navy-panel-2: #121A2D;
+    --gold: #D8B25C;
+    --gold-soft: #F2DFAE;
+    --white: #FAFAFC;
+    --text-dim: #9AA4BC;
+    --text-dim-2: #6D7690;
+    --border: rgba(255,255,255,0.09);
+    --border-soft: rgba(255,255,255,0.06);
+    --radius: 18px;
+    --shadow: 0 24px 60px rgba(0,0,0,0.5);
+    --shadow-soft: 0 14px 34px rgba(0,0,0,0.35);
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+    color: var(--white);
+    background: var(--navy);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  .container{ max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    color: var(--gold); font-family:'Oswald',sans-serif; font-weight:600;
+    font-size:13px; letter-spacing:2.4px; text-transform:uppercase;
+  }
+  .eyebrow::before{ content:""; width:26px; height:2px; background: var(--gold); display:inline-block; }
+  h1,h2,h3{ font-family:'Oswald',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#fff; line-height:1.15; }
+  h2{ font-size: clamp(28px,3.8vw,42px); margin: 14px 0 14px; }
+  h2 em{ font-style:normal; color: var(--red); }
+  .section-lead{ color: var(--text-dim); font-size:16.5px; max-width:620px; margin-bottom:40px; font-family:'Be Vietnam Pro',sans-serif; text-transform:none; letter-spacing:0; }
+  .section{ padding: 96px 0; position:relative; }
+  .section.alt{ background: var(--navy-panel); }
+  .center{ text-align:center; margin-left:auto; margin-right:auto; }
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* Header */
+  .site-header{
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(6,9,17,0.72);
+    backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--border-soft);
+    transition: background .3s;
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 24px; max-width:1140px; margin:0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:13px; min-width:0; }
+  .brand img{ width:42px; height:42px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(216,178,92,.5); flex-shrink:0; }
+  .brand-text{ line-height:1.3; min-width:0; }
+  .brand-text .top{ font-size:10px; color: var(--text-dim-2); font-weight:600; text-transform:uppercase; letter-spacing:1px; font-family:'Oswald',sans-serif; }
+  .brand-text .main{ font-size:14.5px; font-weight:700; color:#fff; font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .nav-links{ display:flex; gap:34px; }
+  .nav-links a{
+    font-family:'Oswald',sans-serif; font-size:13.5px; font-weight:500; letter-spacing:1.2px;
+    text-transform:uppercase; color: var(--text-dim); transition:color .2s; position:relative;
+  }
+  .nav-links a:hover{ color:#fff; }
+  .cta-header{
+    background: linear-gradient(135deg, var(--gold), #B98F3C); color:#191204; font-weight:700; font-size:13.5px;
+    padding:11px 24px; border-radius:4px; white-space:nowrap; font-family:'Oswald',sans-serif;
+    letter-spacing:1px; text-transform:uppercase; box-shadow: 0 8px 20px rgba(216,178,92,.28);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .cta-header:hover{ transform: translateY(-2px); box-shadow: 0 12px 26px rgba(216,178,92,.4); }
+
+  /* Hero */
+  .hero{
+    position:relative; color:#fff; overflow:hidden;
+    min-height: 100vh; display:flex; align-items:center;
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(6,9,17,.55) 0%, rgba(6,9,17,.72) 55%, var(--navy) 100%),
+      linear-gradient(90deg, rgba(6,9,17,.75) 0%, rgba(6,9,17,.15) 55%),
+      var(--img);
+    background-size: cover; background-position: center 28%;
+  }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:120px;
+    background: var(--navy);
+    clip-path: polygon(0 100%, 100% 100%, 100% 40%, 0 100%);
+  }
+  .hero-inner{ position:relative; z-index:2; padding: 140px 24px 160px; max-width:1140px; margin:0 auto; }
+  .hero-inner .eyebrow{ color: var(--gold-soft); }
+  .hero h1{
+    color:#fff; font-size: clamp(38px, 6.4vw, 68px); margin: 20px 0 22px; max-width:820px;
+  }
+  .hero h1 span{ color: var(--red); }
+  .hero p{ font-size:18.5px; opacity:.88; max-width:560px; margin:0 0 34px; font-family:'Be Vietnam Pro',sans-serif; }
+  .hero-fee{
+    display:inline-flex; align-items:center; gap:12px; background:rgba(255,255,255,.06);
+    border:1px solid rgba(216,178,92,.4); padding:12px 24px; border-radius:999px;
+    font-weight:600; margin-bottom:38px; backdrop-filter: blur(6px); font-size:14.5px;
+  }
+  .hero-fee b{ color: var(--gold-soft); font-size:19px; font-family:'Oswald',sans-serif; }
+  .hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; }
+
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px; background: var(--red); color:#fff; font-weight:700;
+    font-size:15.5px; padding:17px 36px; border-radius:4px; font-family:'Oswald',sans-serif;
+    letter-spacing:1.2px; text-transform:uppercase;
+    box-shadow: 0 14px 30px rgba(228,33,43,.38);
+    border:none; cursor:pointer; transition: transform .2s, box-shadow .2s, background .2s;
+  }
+  .btn-primary:hover{ background: var(--red-dark); transform: translateY(-3px); box-shadow: 0 18px 36px rgba(228,33,43,.5); }
+  .btn-ghost{
+    display:inline-flex; align-items:center; gap:10px; background: transparent; color:#fff; font-weight:600;
+    font-size:15px; padding:16px 32px; border-radius:4px; font-family:'Oswald',sans-serif;
+    letter-spacing:1.2px; text-transform:uppercase; border:1.5px solid rgba(255,255,255,.35);
+    transition: border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{ border-color:#fff; background: rgba(255,255,255,.06); }
+
+  /* Ribbon stats */
+  .ribbon{
+    position:relative; z-index:3; margin-top:-70px;
+  }
+  .ribbon-inner{
+    background: var(--navy-panel-2); border:1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    display:grid; grid-template-columns: repeat(4,1fr);
+  }
+  .ribbon-item{
+    padding: 30px 20px; text-align:center; border-right:1px solid var(--border-soft);
+  }
+  .ribbon-item:last-child{ border-right:none; }
+  .ribbon-item .k{ font-family:'Oswald',sans-serif; font-size: clamp(20px,2.4vw,28px); font-weight:700; color: var(--gold-soft); }
+  .ribbon-item .v{ font-size:12.5px; color: var(--text-dim); text-transform:uppercase; letter-spacing:.8px; margin-top:6px; font-family:'Oswald',sans-serif; }
+
+  /* About */
+  .about-grid{ display:grid; grid-template-columns: 1.05fr .95fr; gap:60px; align-items:center; }
+  .about-list{ margin:26px 0 32px; list-style:none; }
+  .about-list li{ display:flex; gap:12px; align-items:flex-start; margin-bottom:14px; font-size:15.5px; color:#dfe3ee; }
+  .about-list li::before{ content:"—"; color: var(--gold); font-weight:700; flex-shrink:0; }
+  .about-visual{
+    position:relative; border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow);
+    border:1px solid var(--border); aspect-ratio: 4/5;
+  }
+  .about-visual img{ width:100%; height:100%; object-fit:cover; }
+  .about-visual::after{
+    content:""; position:absolute; inset:0; background: linear-gradient(0deg, rgba(6,9,17,.85), transparent 45%);
+  }
+  .about-visual .cap{
+    position:absolute; left:0; right:0; bottom:0; padding:22px 24px; z-index:2;
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:1px; font-size:13.5px; color: var(--gold-soft);
+  }
+
+  /* Benefits */
+  .benefits-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
+  .benefit-card{
+    background: var(--navy-panel-2); border:1px solid var(--border); border-radius: var(--radius);
+    padding:32px 28px; transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+  .benefit-card:hover{ transform: translateY(-6px); border-color: rgba(216,178,92,.45); box-shadow: var(--shadow-soft); }
+  .benefit-card .num{ font-family:'Oswald',sans-serif; font-size:13px; color: var(--text-dim-2); letter-spacing:1.5px; margin-bottom:18px; }
+  .benefit-card .icon{
+    width:54px; height:54px; border-radius:50%; background: linear-gradient(135deg, var(--gold), #8a6a26);
+    display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:20px; color:#191204;
+  }
+  .benefit-card h3{ font-size:18.5px; margin-bottom:10px; letter-spacing:.3px; }
+  .benefit-card p{ color: var(--text-dim); font-size:14.5px; font-family:'Be Vietnam Pro',sans-serif; }
+
+  /* Nội quy */
+  .rules-grid{
+    display:grid; grid-template-columns: 340px 1fr; gap:44px; align-items:center;
+  }
+  .rules-frame{
+    position:relative; padding:18px; background: linear-gradient(160deg, var(--navy-panel-2), var(--navy-panel));
+    border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+    transform: rotate(-2deg);
+  }
+  .rules-frame img{ border-radius:10px; }
+  .rules-frame .tag{
+    position:absolute; top:-14px; left:22px; background: var(--gold); color:#191204;
+    font-family:'Oswald',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; padding:6px 14px; border-radius:3px; transform: rotate(-2deg);
+  }
+  .rules-list{ list-style:none; }
+  .rules-list li{
+    display:flex; gap:16px; padding:20px 0; border-bottom:1px solid var(--border-soft); align-items:flex-start;
+  }
+  .rules-list li:last-child{ border-bottom:none; }
+  .rules-list .star{ color: var(--gold); font-size:19px; line-height:1.4; font-family:'Oswald',sans-serif; }
+  .rules-list .txt{ font-size:15.5px; color:#dfe3ee; }
+  .rules-note{
+    margin-top:20px; font-size:13.5px; color: var(--text-dim-2); font-family:'Oswald',sans-serif;
+    letter-spacing:.6px; text-transform:uppercase;
+  }
+
+  /* Membership card + Fee */
+  .fee-wrap{ display:grid; grid-template-columns: 1.05fr .95fr; gap:56px; align-items:center; }
+  .mcard-wrap{ perspective: 1200px; }
+  .mcard{
+    position:relative; aspect-ratio: 1.586/1; border-radius:20px; overflow:hidden;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(216,178,92,.25), transparent 45%),
+      linear-gradient(135deg, #141b2e 0%, #0a0d17 60%, #05070c 100%);
+    border:1px solid rgba(216,178,92,.3);
+    box-shadow: var(--shadow);
+    padding:28px 30px; color:#fff;
+    transform: rotate(-4deg);
+    transition: transform .4s;
+  }
+  .mcard-wrap:hover .mcard{ transform: rotate(0deg) scale(1.02); }
+  .mcard::before{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.07) 50%, transparent 60%);
+  }
+  .mcard-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .mcard-brand{ display:flex; align-items:center; gap:10px; }
+  .mcard-brand img{ width:34px; height:34px; border-radius:50%; }
+  .mcard-brand b{ font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1px; text-transform:uppercase; display:block; }
+  .mcard-brand .sub{ font-size:9.5px; color: var(--text-dim-2); letter-spacing:.6px; }
+  .mcard-chip{ width:42px; height:32px; border-radius:6px; background: linear-gradient(135deg,#e8cf90,#b8934a); }
+  .mcard-mid{ margin-top:30px; font-family:'Oswald',sans-serif; font-size: clamp(15px,2vw,19px); letter-spacing:3px; color: var(--gold-soft); }
+  .mcard-bottom{ margin-top:22px; display:flex; justify-content:space-between; align-items:flex-end; }
+  .mcard-name{ font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:1px; text-transform:uppercase; }
+  .mcard-name .lbl{ font-size:9px; color: var(--text-dim-2); letter-spacing:1px; display:block; margin-bottom:3px; text-transform:uppercase; font-family:'Be Vietnam Pro',sans-serif; }
+  .mcard-valid{ text-align:right; }
+  .mcard-valid .lbl{ font-size:9px; color: var(--text-dim-2); letter-spacing:1px; display:block; margin-bottom:3px; text-transform:uppercase; font-family:'Be Vietnam Pro',sans-serif;}
+  .mcard-caption{ text-align:center; font-size:12.5px; color: var(--text-dim-2); margin-top:20px; font-family:'Oswald',sans-serif; letter-spacing:1px; text-transform:uppercase; }
+
+  .fee-card{
+    background: var(--navy-panel-2); border:1px solid var(--border); color:#fff; border-radius: var(--radius);
+    padding:36px; box-shadow: var(--shadow-soft);
+  }
+  .fee-card .amount{ font-family:'Oswald',sans-serif; font-size:46px; font-weight:700; color: var(--gold-soft); margin:6px 0 20px; }
+  .fee-card ul{ list-style:none; }
+  .fee-card ul li{ display:flex; gap:12px; margin-bottom:12px; font-size:14.5px; color:#dfe3ee; align-items:flex-start; }
+  .fee-card ul li::before{ content:"✓"; color: var(--gold); font-weight:700; flex-shrink:0; }
+  .qr-block{
+    margin-top:26px; padding-top:26px; border-top:1px solid var(--border-soft);
+    display:flex; gap:20px; align-items:center;
+  }
+  .qr-placeholder{
+    width:96px; height:96px; border-radius:10px; border:1.5px dashed rgba(216,178,92,.5); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; color: var(--gold-soft);
+    font-size:10.5px; font-weight:700; text-align:center; padding:8px; background: rgba(216,178,92,.06);
+    font-family:'Oswald',sans-serif; letter-spacing:.4px;
+  }
+  .qr-block h4{ font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:.5px; text-transform:uppercase; margin-bottom:6px; color:#fff; }
+  .qr-block p{ font-size:13px; color: var(--text-dim); font-family:'Be Vietnam Pro',sans-serif; }
+
+  /* Form */
+  .form-wrap{
+    background: var(--navy-panel-2); border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 48px; max-width:660px; margin:0 auto;
+  }
+  .field{ margin-bottom:22px; }
+  .field label{ display:block; font-weight:600; font-size:12.5px; margin-bottom:9px; color: var(--gold-soft); font-family:'Oswald',sans-serif; letter-spacing:1px; text-transform:uppercase; }
+  .field label .req{ color: var(--red); }
+  .field input, .field textarea{
+    width:100%; padding:14px 16px; border:1.5px solid var(--border); border-radius:8px;
+    font-family:'Be Vietnam Pro',sans-serif; font-size:15px; background: rgba(255,255,255,.03); color:#fff; transition: border-color .15s, background .15s;
+  }
+  .field input::placeholder, .field textarea::placeholder{ color: var(--text-dim-2); }
+  .field input:focus, .field textarea:focus{ outline:none; border-color: var(--gold); background: rgba(255,255,255,.05); }
+  .field textarea{ resize:vertical; min-height:86px; }
+  .field .hint{ font-size:12px; color: var(--text-dim-2); margin-top:6px; }
+  .field .error{ font-size:12px; color: #ff8b83; margin-top:6px; display:none; font-weight:600; }
+  .field.invalid input, .field.invalid textarea{ border-color: var(--red); }
+  .field.invalid .error{ display:block; }
+  .submit-btn{
+    width:100%; background: linear-gradient(135deg, var(--gold), #B98F3C); color:#191204; font-weight:700; font-size:15px;
+    padding:18px; border:none; border-radius:8px; cursor:pointer; box-shadow: 0 16px 34px rgba(216,178,92,.3);
+    font-family:'Oswald',sans-serif; letter-spacing:1.4px; text-transform:uppercase; transition: transform .2s, box-shadow .2s;
+  }
+  .submit-btn:hover{ transform: translateY(-2px); box-shadow: 0 20px 40px rgba(216,178,92,.42); }
+  .submit-btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+  .form-msg{
+    margin-top:18px; padding:15px 17px; border-radius:8px; font-size:14.5px; font-weight:600; display:none;
+  }
+  .form-msg.show{ display:block; }
+  .form-msg.success{ background: rgba(60,180,110,.12); color:#7EE2A4; border:1px solid rgba(60,180,110,.35); }
+  .form-msg.error{ background: rgba(228,33,43,.12); color:#ff9a94; border:1px solid rgba(228,33,43,.35); }
+
+  /* Popup thanh toán QR */
+  .pay-modal-overlay{
+    position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center;
+    background: rgba(2,3,6,.8); backdrop-filter: blur(8px);
+    opacity:0; visibility:hidden; transition: opacity .25s ease, visibility .25s ease;
+    padding:20px;
+  }
+  .pay-modal-overlay.open{ opacity:1; visibility:visible; }
+  .pay-modal{
+    background: linear-gradient(160deg, var(--navy-panel-2), var(--navy-panel));
+    border:1px solid rgba(216,178,92,.35); border-radius: var(--radius); box-shadow: var(--shadow);
+    max-width:420px; width:100%; padding:38px 32px 32px; text-align:center; position:relative;
+    transform: translateY(18px) scale(.97); transition: transform .3s ease; max-height:90vh; overflow-y:auto;
+  }
+  .pay-modal-overlay.open .pay-modal{ transform:none; }
+  .pay-modal-close{
+    position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%;
+    background: rgba(255,255,255,.06); border:1px solid var(--border); color:#fff; font-size:20px; line-height:1;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; transition: background .2s;
+  }
+  .pay-modal-close:hover{ background: rgba(255,255,255,.14); }
+  .pay-modal-check{
+    width:56px; height:56px; border-radius:50%; background: linear-gradient(135deg,#3cb46e,#1f8a4c);
+    color:#fff; font-size:26px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;
+    box-shadow: 0 10px 24px rgba(60,180,110,.35);
+  }
+  .pay-modal h3{ font-size:21px; margin-bottom:10px; }
+  .pay-modal-sub{ font-size:14px; color: var(--text-dim); margin-bottom:26px; font-family:'Be Vietnam Pro',sans-serif; }
+  .pay-qr-img{ width:190px; height:190px; border-radius:12px; margin:0 auto 20px; object-fit:contain; border:1px solid var(--border); background:#fff; padding:8px; }
+  .pay-qr-placeholder{
+    width:190px; height:190px; border-radius:12px; margin:0 auto 20px; border:1.5px dashed rgba(216,178,92,.5);
+    display:flex; align-items:center; justify-content:center; color: var(--gold-soft); font-size:13px; font-weight:600;
+    background: rgba(216,178,92,.06); font-family:'Oswald',sans-serif; letter-spacing:.5px; text-align:center; padding:16px;
+  }
+  .pay-info{ text-align:left; background: rgba(255,255,255,.03); border:1px solid var(--border-soft); border-radius:10px; padding:6px 18px; margin-bottom:22px; font-size:14px; }
+  .pay-info div{ display:flex; justify-content:space-between; gap:10px; padding:11px 0; border-bottom:1px dashed var(--border-soft); }
+  .pay-info div:last-child{ border-bottom:none; }
+  .pay-info .lbl{ color: var(--text-dim-2); font-size:13px; }
+  .pay-info .val{ color:#fff; font-weight:600; text-align:right; }
+  .pay-modal-note{ font-size:12.5px; color: var(--text-dim-2); margin-bottom:24px; line-height:1.6; }
+  .pay-modal-done{ width:100%; justify-content:center; }
+  @media (max-width:480px){
+    .pay-modal{ padding:30px 20px 24px; }
+  }
+
+  /* Footer */
+  footer{ background: #030408; color: var(--text-dim); padding:56px 0 30px; border-top:1px solid var(--border-soft); }
+  .footer-inner{ display:flex; flex-wrap:wrap; gap:28px; justify-content:space-between; align-items:center; }
+  .footer-brand{ display:flex; align-items:center; gap:14px; }
+  .footer-brand img{ width:44px; height:44px; border-radius:50%; border:1px solid rgba(216,178,92,.4); }
+  .footer-brand b{ color:#fff; font-size:15px; font-family:'Oswald',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
+  footer .sub{ font-size:13px; color: var(--text-dim-2); }
+  .footer-bottom{ margin-top:34px; padding-top:22px; border-top:1px solid var(--border-soft); font-size:12px; color: var(--text-dim-2); text-align:center; letter-spacing:.4px; }
+
+  @media (max-width: 960px){
+    .about-grid{ grid-template-columns:1fr; }
+    .about-visual{ order:-1; aspect-ratio: 16/10; }
+    .benefits-grid{ grid-template-columns:1fr; }
+    .rules-grid{ grid-template-columns:1fr; gap:50px; }
+    .rules-frame{ max-width:320px; margin:0 auto; }
+    .fee-wrap{ grid-template-columns:1fr; gap:40px; }
+    .mcard-wrap{ max-width:420px; margin:0 auto; }
+    .ribbon-inner{ grid-template-columns: repeat(2,1fr); }
+    .ribbon-item:nth-child(2){ border-right:none; }
+    .ribbon-item{ border-bottom:1px solid var(--border-soft); }
+    .nav-links{ display:none; }
+  }
+  @media (max-width: 640px){
+    .section{ padding:72px 0; }
+    .form-wrap{ padding:28px; }
+    .header-inner{ padding:12px 16px; gap:10px; }
+    .brand{ gap:9px; }
+    .brand img{ width:36px; height:36px; }
+    .brand-text .top{ display:none; }
+    .brand-text .main{ font-size:12.5px; }
+    .cta-header{ padding:10px 16px; font-size:11.5px; }
+    .hero-inner{ padding:120px 20px 130px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Logo Hội CĐV Bóng đá Huế">
+      <div class="brand-text">
+        <div class="top">Sở VH-TT-DL TP. Huế</div>
+        <div class="main">Hội CĐV Bóng đá Huế</div>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a href="#quyen-loi">Quyền lợi</a>
+      <a href="#noi-quy">Nội quy</a>
+      <a href="#phi">Lệ phí</a>
+    </nav>
+    <a href="#dang-ky" class="cta-header">Đăng ký</a>
+  </div>
+</header>
+
+<section class="hero" style="--img:url('assets/hero.jpg')">
+  <div class="hero-inner">
+    <span class="eyebrow">Sở VH-TT-DL TP. Huế × Hội CĐV Bóng đá Huế</span>
+    <h1>Trở thành <span>Hội viên</span><br>chính thức của Huế</h1>
+    <p>Cùng nhau tiếp lửa cho đội bóng quê hương trên mọi mặt trận. Đăng ký hội viên để nhận thẻ vào sân và đồng phục cổ vũ chính thức.</p>
+    <div class="hero-fee">Phí hội viên chỉ <b>100.000đ / năm</b></div>
+    <div class="hero-ctas">
+      <a href="#dang-ky" class="btn-primary">Đăng ký ngay →</a>
+      <a href="#quyen-loi" class="btn-ghost">Xem quyền lợi</a>
+    </div>
+  </div>
+</section>
+
+<div class="container ribbon reveal">
+  <div class="ribbon-inner">
+    <div class="ribbon-item"><div class="k">100.000đ</div><div class="v">Phí / năm</div></div>
+    <div class="ribbon-item"><div class="k">Khán đài B</div><div class="v">Vé miễn phí</div></div>
+    <div class="ribbon-item"><div class="k">01 Áo</div><div class="v">Đồng phục hội viên</div></div>
+    <div class="ribbon-item"><div class="k">2026–2031</div><div class="v">Hiệu lực thẻ</div></div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">Về chúng tôi</span>
+      <h2>Ngôi nhà chung<br>của <em>Fan</em> bóng đá Huế</h2>
+      <p class="section-lead" style="margin-bottom:0;">
+        Hội Cổ động viên Bóng đá Huế hoạt động dưới sự quản lý của Sở Văn hóa - Thể thao - Du lịch Thành phố Huế,
+        quy tụ những người yêu bóng đá cùng cổ vũ, đồng hành và lan tỏa tinh thần thể thao chân chính cho đội bóng
+        tỉnh nhà tại sân Tự Do - Huế.
+      </p>
+      <ul class="about-list">
+        <li>Cộng đồng cổ động viên chính thức, được công nhận bởi Sở VH-TT-DL Thành phố Huế</li>
+        <li>Đồng hành cùng đội bóng tại mọi trận đấu sân nhà</li>
+        <li>Quyền lợi thiết thực với mức phí tượng trưng 100.000đ/năm</li>
+      </ul>
+      <a href="#dang-ky" class="btn-primary">Tham gia Hội viên</a>
+    </div>
+    <div class="about-visual reveal">
+      <img src="assets/hero.jpg" alt="Cổ động viên trên khán đài sân Tự Do - Huế">
+      <div class="cap">Sân Tự Do — Huế</div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="quyen-loi">
+  <div class="container">
+    <span class="eyebrow reveal">Quyền lợi hội viên</span>
+    <h2 class="reveal">Đăng ký ngay để nhận<br>những <em>quyền lợi</em> sau</h2>
+    <p class="section-lead reveal">Chỉ với mức phí tượng trưng, hội viên chính thức được hưởng đầy đủ các quyền lợi dưới đây.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <div class="num">01</div>
+        <div class="icon">🎫</div>
+        <h3>Thẻ hội viên</h3>
+        <p>Được cấp thẻ hội viên chính thức, xuất trình để nhận vé vào sân miễn phí tại khán đài B trong các trận đấu do Hội tổ chức.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="num">02</div>
+        <div class="icon">👕</div>
+        <h3>Áo đồng phục Hội viên</h3>
+        <p>Được phát 01 áo hội viên theo mẫu chính thức của Hội, mặc khi tham dự cổ động các trận bóng đá.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="num">03</div>
+        <div class="icon">📣</div>
+        <h3>Đồng hành cùng đội bóng</h3>
+        <p>Tham gia cộng đồng cổ động viên chính thức, cập nhật lịch thi đấu và các hoạt động cổ vũ của Hội.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="noi-quy">
+  <div class="container">
+    <span class="eyebrow reveal">Nội quy hội viên</span>
+    <h2 class="reveal">Trách nhiệm của<br><em>Hội viên</em></h2>
+    <p class="section-lead reveal">Khi tham gia Hội, hội viên vui lòng thực hiện đúng các quy định sau:</p>
+    <div class="rules-grid">
+      <div class="rules-frame reveal">
+        <span class="tag">Tài liệu chính thức</span>
+        <img src="assets/noi-quy.jpg" alt="Bảng nội quy hội viên chính thức của Hội Cổ động viên Bóng đá Huế">
+      </div>
+      <div class="reveal">
+        <ul class="rules-list">
+          <li><span class="star">★</span><span class="txt">Có đồng phục (áo, mũ...) theo mẫu của Hội khi tham dự cổ động các trận bóng đá.</span></li>
+          <li><span class="star">★</span><span class="txt">Xuất trình thẻ hội viên để nhận vé vào cổng xem bóng đá do Hội tổ chức.</span></li>
+          <li><span class="star">★</span><span class="txt">Chấp hành nội quy của Hội trong việc cổ vũ đội bóng với tinh thần thể thao chân chính.</span></li>
+          <li><span class="star">★</span><span class="txt">Đóng lệ phí đúng thời gian quy định.</span></li>
+        </ul>
+        <div class="rules-note">Thẻ hội viên có giá trị từ 2026 đến 2031</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="phi">
+  <div class="container">
+    <span class="eyebrow reveal">Lệ phí hội viên</span>
+    <h2 class="reveal">Mức phí &<br><em>Thanh toán</em></h2>
+    <div class="fee-wrap">
+      <div class="mcard-wrap reveal">
+        <div class="mcard">
+          <div class="mcard-top">
+            <div class="mcard-brand">
+              <img src="assets/logo.png" alt="Logo">
+              <div>
+                <b>Hội CĐV Bóng đá Huế</b>
+                <div class="sub">Official Member Card</div>
+              </div>
+            </div>
+            <div class="mcard-chip"></div>
+          </div>
+          <div class="mcard-mid">HỘI VIÊN CHÍNH THỨC</div>
+          <div class="mcard-bottom">
+            <div class="mcard-name"><span class="lbl">Hội viên</span>NGUYỄN VĂN A</div>
+            <div class="mcard-valid"><span class="lbl">Giá trị</span>2026 – 2031</div>
+          </div>
+        </div>
+        <div class="mcard-caption">Mẫu thẻ hội viên minh họa</div>
+      </div>
+
+      <div class="fee-card reveal">
+        <span class="eyebrow" style="margin-bottom:0;">Phí hội viên</span>
+        <div class="amount">100.000đ <span style="font-size:16px; font-weight:400; color:var(--text-dim); font-family:'Be Vietnam Pro',sans-serif;">/ năm</span></div>
+        <ul>
+          <li>Được cấp thẻ hội viên (giá trị 2026 - 2031)</li>
+          <li>Vé vào sân miễn phí - khán đài B</li>
+          <li>01 áo đồng phục hội viên miễn phí</li>
+        </ul>
+        <div class="qr-block">
+          <div class="qr-placeholder" id="qr-placeholder">QR<br>Đang cập nhật</div>
+          <div>
+            <h4>Hình thức thanh toán</h4>
+            <p id="qr-note">Sau khi gửi đăng ký, Ban chủ nhiệm Hội sẽ liên hệ qua số điện thoại/Zalo bạn cung cấp để hướng dẫn thanh toán và hẹn lịch nhận thẻ, áo hội viên.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dang-ky">
+  <div class="container">
+    <span class="eyebrow center reveal" style="display:flex; justify-content:center;">Đăng ký hội viên</span>
+    <h2 class="center reveal">Điền thông tin<br><em>Đăng ký</em></h2>
+    <p class="section-lead center reveal">Vui lòng điền đầy đủ và chính xác thông tin bên dưới. Hội sẽ liên hệ xác nhận qua số điện thoại/Zalo bạn cung cấp.</p>
+
+    <div class="form-wrap reveal">
+      <form id="dangky-form" novalidate>
+
+        <div class="field" data-field="hoTen">
+          <label>Họ và tên <span class="req">*</span></label>
+          <input type="text" name="hoTen" autocomplete="name" placeholder="Nguyễn Văn A">
+          <div class="error">Vui lòng nhập họ và tên.</div>
+        </div>
+
+        <div class="field" data-field="namSinh">
+          <label>Năm sinh <span class="req">*</span></label>
+          <input type="number" name="namSinh" inputmode="numeric" placeholder="1995" min="1930" max="2026">
+          <div class="error">Vui lòng nhập năm sinh hợp lệ (1930 - 2026).</div>
+        </div>
+
+        <div class="field" data-field="cccd">
+          <label>Số CCCD <span class="req">*</span></label>
+          <input type="text" name="cccd" inputmode="numeric" maxlength="12" placeholder="Gồm 12 số">
+          <div class="hint">Nhập đủ 12 chữ số trên căn cước công dân.</div>
+          <div class="error">Số CCCD phải gồm đúng 12 chữ số.</div>
+        </div>
+
+        <div class="field" data-field="soDienThoai">
+          <label>Số điện thoại (có Zalo) <span class="req">*</span></label>
+          <input type="tel" name="soDienThoai" inputmode="tel" placeholder="0905 xxx xxx">
+          <div class="hint">Hội sẽ liên hệ qua Zalo/điện thoại này để hướng dẫn thanh toán và nhận thẻ.</div>
+          <div class="error">Vui lòng nhập số điện thoại Việt Nam hợp lệ.</div>
+        </div>
+
+        <div class="field" data-field="diaChi">
+          <label>Địa chỉ <span class="req">*</span></label>
+          <textarea name="diaChi" placeholder="Số nhà, đường, phường/xã, thành phố Huế"></textarea>
+          <div class="error">Vui lòng nhập địa chỉ.</div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Gửi đăng ký</button>
+        <div class="form-msg" id="form-msg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="pay-modal-overlay" id="pay-modal-overlay" aria-hidden="true">
+  <div class="pay-modal" role="dialog" aria-modal="true" aria-labelledby="pay-modal-title">
+    <button type="button" class="pay-modal-close" id="pay-modal-close" aria-label="Đóng">&times;</button>
+    <div class="pay-modal-check">✓</div>
+    <h3 id="pay-modal-title">Đăng ký thành công</h3>
+    <p class="pay-modal-sub">Quét mã QR bên dưới để chuyển khoản phí hội viên 100.000đ, hoặc chuyển khoản theo thông tin tài khoản.</p>
+    <div id="pay-modal-body"><!-- được JS điền vào theo CONFIG --></div>
+    <button type="button" class="btn-primary pay-modal-done" id="pay-modal-done">Đã hiểu, đóng</button>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Logo Hội">
+        <div>
+          <b>Hội Cổ động viên Bóng đá Huế</b>
+          <div class="sub">Sở Văn hóa - Thể thao - Du lịch Thành phố Huế</div>
+        </div>
+      </div>
+      <div class="sub">Sân Tự Do — Huế</div>
+    </div>
+    <div class="footer-bottom">© 2026 Hội Cổ động viên Bóng đá Huế. Trang đăng ký hội viên trực tuyến.</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   CẤU HÌNH — chỉnh các giá trị bên dưới khi cần
+   ========================================================= */
+const CONFIG = {
+  // Dán URL Web App của Google Apps Script vào đây (xem HUONG_DAN_CAI_DAT.md)
+  GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwpE5B9KQq7nPQkdkhIiLirtH-u7auBAIRDfhuLDV_qYNrzHft3ANo3tCdzryPWrswT/exec",
+
+  // Khi Hội đã có tài khoản ngân hàng riêng và ảnh QR thanh toán:
+  // 1) đổi QR_READY thành true
+  // 2) đặt ảnh QR vào assets/qr-thanh-toan.png
+  // 3) điền thông tin tài khoản bên dưới
+  QR_READY: false,
+  BANK_NAME: "",          // vd: "Vietcombank - CN Huế"
+  ACCOUNT_NAME: "",       // vd: "HOI CO DONG VIEN BONG DA HUE"
+  ACCOUNT_NUMBER: ""      // vd: "0123456789"
+};
+
+// Áp dụng CONFIG cho phần QR thanh toán
+(function renderQR(){
+  if(CONFIG.QR_READY){
+    document.getElementById('qr-placeholder').outerHTML =
+      '<img src="assets/qr-thanh-toan.png" alt="QR thanh toán phí hội viên" style="width:96px;height:96px;border-radius:10px;object-fit:contain;border:1px solid rgba(255,255,255,.12);flex-shrink:0;">';
+    document.getElementById('qr-note').innerHTML =
+      'Quét mã QR hoặc chuyển khoản theo thông tin: <br><b>' + CONFIG.ACCOUNT_NAME + '</b><br>' +
+      'STK: <b>' + CONFIG.ACCOUNT_NUMBER + '</b> - ' + CONFIG.BANK_NAME + '<br>' +
+      'Nội dung chuyển khoản: Họ tên - Số điện thoại đăng ký hội viên.';
+  }
+})();
+
+/* =========================================================
+   POPUP THANH TOÁN QR — hiện sau khi đăng ký thành công
+   ========================================================= */
+const payModalOverlay = document.getElementById('pay-modal-overlay');
+const payModalBody = document.getElementById('pay-modal-body');
+const payModalClose = document.getElementById('pay-modal-close');
+const payModalDone = document.getElementById('pay-modal-done');
+
+function buildPayModalBody(){
+  if(CONFIG.QR_READY){
+    return (
+      '<img class="pay-qr-img" src="assets/qr-thanh-toan.png" alt="QR thanh toán phí hội viên">' +
+      '<div class="pay-info">' +
+        '<div><span class="lbl">Chủ tài khoản</span><span class="val">' + CONFIG.ACCOUNT_NAME + '</span></div>' +
+        '<div><span class="lbl">Số tài khoản</span><span class="val">' + CONFIG.ACCOUNT_NUMBER + '</span></div>' +
+        '<div><span class="lbl">Ngân hàng</span><span class="val">' + CONFIG.BANK_NAME + '</span></div>' +
+        '<div><span class="lbl">Số tiền</span><span class="val">100.000đ</span></div>' +
+      '</div>' +
+      '<p class="pay-modal-note">Nội dung chuyển khoản: <b>Họ tên - Số điện thoại</b> vừa đăng ký, để Hội đối chiếu nhanh hơn.</p>'
+    );
+  }
+  return (
+    '<div class="pay-qr-placeholder">QR THANH TOÁN<br>Đang cập nhật</div>' +
+    '<p class="pay-modal-note" style="margin-bottom:24px;">Ban chủ nhiệm Hội sẽ liên hệ qua số điện thoại/Zalo bạn vừa đăng ký để hướng dẫn chuyển khoản phí 100.000đ và hẹn lịch nhận thẻ, áo hội viên.</p>'
+  );
+}
+
+function openPayModal(){
+  payModalBody.innerHTML = buildPayModalBody();
+  payModalOverlay.classList.add('open');
+  payModalOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closePayModal(){
+  payModalOverlay.classList.remove('open');
+  payModalOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+payModalClose.addEventListener('click', closePayModal);
+payModalDone.addEventListener('click', closePayModal);
+payModalOverlay.addEventListener('click', function(e){ if(e.target === payModalOverlay) closePayModal(); });
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && payModalOverlay.classList.contains('open')) closePayModal(); });
+
+/* =========================================================
+   HIỆU ỨNG CUỘN (fade-up khi vào khung nhìn)
+   ========================================================= */
+(function scrollReveal(){
+  const els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){ els.forEach(el => el.classList.add('in')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+/* =========================================================
+   XỬ LÝ FORM — validate + gửi dữ liệu vào Google Sheet
+   ========================================================= */
+const form = document.getElementById('dangky-form');
+const msgBox = document.getElementById('form-msg');
+const submitBtn = document.getElementById('submit-btn');
+
+function setError(fieldName, isInvalid){
+  const el = form.querySelector('[data-field="'+fieldName+'"]');
+  el.classList.toggle('invalid', isInvalid);
+}
+
+function validate(data){
+  let ok = true;
+
+  if(!data.hoTen || data.hoTen.trim().length < 2){ setError('hoTen', true); ok = false; } else setError('hoTen', false);
+
+  const namSinhNum = parseInt(data.namSinh, 10);
+  if(!namSinhNum || namSinhNum < 1930 || namSinhNum > 2026){ setError('namSinh', true); ok = false; } else setError('namSinh', false);
+
+  if(!/^\d{12}$/.test((data.cccd||'').trim())){ setError('cccd', true); ok = false; } else setError('cccd', false);
+
+  const phoneClean = (data.soDienThoai||'').replace(/[\s.-]/g,'');
+  if(!/^(0|\+84)(3|5|7|8|9)\d{8}$/.test(phoneClean)){ setError('soDienThoai', true); ok = false; } else setError('soDienThoai', false);
+
+  if(!data.diaChi || data.diaChi.trim().length < 5){ setError('diaChi', true); ok = false; } else setError('diaChi', false);
+
+  return ok;
+}
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const fd = new FormData(form);
+  const data = Object.fromEntries(fd.entries());
+
+  if(!validate(data)){
+    msgBox.className = 'form-msg error show';
+    msgBox.textContent = 'Vui lòng kiểm tra lại các trường được đánh dấu đỏ ở trên.';
+    return;
+  }
+
+  if(CONFIG.GOOGLE_SCRIPT_URL.indexOf('PASTE_') === 0){
+    msgBox.className = 'form-msg error show';
+    msgBox.textContent = 'Form chưa được kết nối tới Google Sheet. Vui lòng làm theo HUONG_DAN_CAI_DAT.md để hoàn tất cài đặt.';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Đang gửi...';
+
+  fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(data).toString()
+  })
+  .then(function(){
+    msgBox.className = 'form-msg success show';
+    msgBox.textContent = 'Đăng ký thành công! Vui lòng xem hướng dẫn thanh toán trong hộp thoại vừa mở.';
+    form.reset();
+    openPayModal();
+  })
+  .catch(function(){
+    msgBox.className = 'form-msg error show';
+    msgBox.textContent = 'Có lỗi khi gửi đăng ký. Vui lòng kiểm tra kết nối mạng và thử lại, hoặc liên hệ trực tiếp với Hội.';
+  })
+  .finally(function(){
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Gửi đăng ký';
+  });
+});
+</script>
+
+</body>
+</html>
