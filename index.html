@@ -45,6 +45,7 @@
     -webkit-font-smoothing: antialiased;
   }
   img{ max-width:100%; display:block; }
+  img[hidden]{ display:none; }
   a{ color:inherit; text-decoration:none; }
   .container{ max-width: 1140px; margin: 0 auto; padding: 0 24px; }
   .eyebrow{
@@ -292,6 +293,22 @@
   .field .error{ font-size:12px; color: #ff8b83; margin-top:6px; display:none; font-weight:600; }
   .field.invalid input, .field.invalid textarea{ border-color: var(--red); }
   .field.invalid .error{ display:block; }
+  .photo-upload{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+  .photo-preview{
+    width:84px; height:84px; border-radius:12px; background: rgba(255,255,255,.03);
+    border:1.5px dashed var(--border); display:flex; align-items:center; justify-content:center;
+    overflow:hidden; flex-shrink:0; transition: border-color .2s;
+  }
+  .photo-preview img{ width:100%; height:100%; object-fit:cover; }
+  .photo-preview #photo-placeholder{ font-size:28px; opacity:.45; }
+  .photo-upload-btn{
+    display:inline-flex; align-items:center; gap:8px; background: rgba(216,178,92,.12);
+    border:1.5px solid rgba(216,178,92,.4); color: var(--gold-soft); font-family:'Oswald',sans-serif;
+    font-size:13px; font-weight:600; letter-spacing:.8px; text-transform:uppercase;
+    padding:11px 18px; border-radius:8px; cursor:pointer; transition: background .2s, border-color .2s; margin-bottom:9px;
+  }
+  .photo-upload-btn:hover{ background: rgba(216,178,92,.2); border-color: var(--gold); }
+  .field.invalid .photo-preview{ border-color: var(--red); }
   .submit-btn{
     width:100%; background: linear-gradient(135deg, var(--gold), #B98F3C); color:#191204; font-weight:700; font-size:15px;
     padding:18px; border:none; border-radius:8px; cursor:pointer; box-shadow: 0 16px 34px rgba(216,178,92,.3);
@@ -436,7 +453,7 @@
       <p class="section-lead" style="margin-bottom:0;">
         Hội Cổ động viên Bóng đá Huế hoạt động dưới sự quản lý của Sở Văn hóa - Thể thao - Du lịch Thành phố Huế,
         quy tụ những người yêu bóng đá cùng cổ vũ, đồng hành và lan tỏa tinh thần thể thao chân chính cho đội bóng
-       thành phố Huế tại sân Tự Do - Huế.
+        thành phố Huế tại sân Tự Do - Huế.
       </p>
       <ul class="about-list">
         <li>Hội cổ động viên chính thức của Đội bóng đá Thành phố Huế, được công nhận bởi Sở VH-TT-DL Thành phố Huế</li>
@@ -590,6 +607,22 @@
           <div class="error">Vui lòng nhập địa chỉ.</div>
         </div>
 
+        <div class="field" data-field="anhHoiVien">
+          <label>Ảnh cá nhân (làm thẻ hội viên) <span class="req">*</span></label>
+          <div class="photo-upload">
+            <div class="photo-preview">
+              <img id="photo-preview" alt="Ảnh xem trước" hidden>
+              <span id="photo-placeholder">📷</span>
+            </div>
+            <div>
+              <label for="anhHoiVien" class="photo-upload-btn">Chọn / Chụp ảnh</label>
+              <input type="file" id="anhHoiVien" name="anhHoiVien" accept="image/*" capture="user" style="display:none">
+              <div class="hint">Ảnh chân dung rõ mặt, dùng để in thẻ hội viên. Có thể chụp trực tiếp bằng camera điện thoại hoặc chọn ảnh có sẵn.</div>
+            </div>
+          </div>
+          <div class="error">Vui lòng chọn hoặc chụp một ảnh cá nhân.</div>
+        </div>
+
         <button type="submit" class="submit-btn" id="submit-btn">Gửi đăng ký</button>
         <div class="form-msg" id="form-msg"></div>
       </form>
@@ -629,17 +662,14 @@
    CẤU HÌNH — chỉnh các giá trị bên dưới khi cần
    ========================================================= */
 const CONFIG = {
-  // Dán URL Web App của Google Apps Script vào đây (xem HUONG_DAN_CAI_DAT.md)
+  // URL Web App của Google Apps Script (đã deploy)
   GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwpE5B9KQq7nPQkdkhIiLirtH-u7auBAIRDfhuLDV_qYNrzHft3ANo3tCdzryPWrswT/exec",
 
-  // Khi Hội đã có tài khoản ngân hàng riêng và ảnh QR thanh toán:
-  // 1) đổi QR_READY thành true
-  // 2) đặt ảnh QR vào assets/qr-thanh-toan.png
-  // 3) điền thông tin tài khoản bên dưới
-  QR_READY: false,
-  BANK_NAME: "",          // vd: "Vietcombank - CN Huế"
-  ACCOUNT_NAME: "",       // vd: "HOI CO DONG VIEN BONG DA HUE"
-  ACCOUNT_NUMBER: ""      // vd: "0123456789"
+  // Thông tin tài khoản nhận chuyển khoản phí hội viên
+  QR_READY: true,
+  BANK_NAME: "VIB",
+  ACCOUNT_NAME: "BÙI XUÂN HÒA",
+  ACCOUNT_NUMBER: "408704060109453"
 };
 
 // Áp dụng CONFIG cho phần QR thanh toán
@@ -712,6 +742,60 @@ document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && payMo
 })();
 
 /* =========================================================
+   ẢNH CÁ NHÂN — nén ảnh trên trình duyệt trước khi gửi đi
+   (giảm dung lượng để gửi nhanh + tiết kiệm Google Drive)
+   ========================================================= */
+const photoInput = document.getElementById('anhHoiVien');
+const photoPreviewImg = document.getElementById('photo-preview');
+const photoPlaceholder = document.getElementById('photo-placeholder');
+let compressedPhotoDataUrl = null;
+
+function resizeImageFile(file, maxDim, quality){
+  return new Promise(function(resolve, reject){
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = function(){
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = function(){
+        let w = img.width, h = img.height;
+        if(w >= h && w > maxDim){ h = Math.round(h * maxDim / w); w = maxDim; }
+        else if(h > w && h > maxDim){ w = Math.round(w * maxDim / h); h = maxDim; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+photoInput.addEventListener('change', function(){
+  const file = photoInput.files && photoInput.files[0];
+  if(!file) return;
+  resizeImageFile(file, 900, 0.82).then(function(dataUrl){
+    compressedPhotoDataUrl = dataUrl;
+    photoPreviewImg.src = dataUrl;
+    photoPreviewImg.hidden = false;
+    photoPlaceholder.hidden = true;
+    setError('anhHoiVien', false);
+  }).catch(function(){
+    compressedPhotoDataUrl = null;
+    msgBox.className = 'form-msg error show';
+    msgBox.textContent = 'Không đọc được ảnh vừa chọn. Vui lòng thử lại với một ảnh khác.';
+  });
+});
+
+function resetPhotoField(){
+  compressedPhotoDataUrl = null;
+  photoPreviewImg.src = '';
+  photoPreviewImg.hidden = true;
+  photoPlaceholder.hidden = false;
+}
+
+/* =========================================================
    XỬ LÝ FORM — validate + gửi dữ liệu vào Google Sheet
    ========================================================= */
 const form = document.getElementById('dangky-form');
@@ -738,6 +822,8 @@ function validate(data){
 
   if(!data.diaChi || data.diaChi.trim().length < 5){ setError('diaChi', true); ok = false; } else setError('diaChi', false);
 
+  if(!compressedPhotoDataUrl){ setError('anhHoiVien', true); ok = false; } else setError('anhHoiVien', false);
+
   return ok;
 }
 
@@ -746,6 +832,8 @@ form.addEventListener('submit', function(e){
 
   const fd = new FormData(form);
   const data = Object.fromEntries(fd.entries());
+  delete data.anhHoiVien; // bỏ File object thô — đã có bản nén base64 riêng bên dưới
+  data.anhBase64 = compressedPhotoDataUrl ? compressedPhotoDataUrl.split(',')[1] : '';
 
   if(!validate(data)){
     msgBox.className = 'form-msg error show';
@@ -772,6 +860,7 @@ form.addEventListener('submit', function(e){
     msgBox.className = 'form-msg success show';
     msgBox.textContent = 'Đăng ký thành công! Vui lòng xem hướng dẫn thanh toán trong hộp thoại vừa mở.';
     form.reset();
+    resetPhotoField();
     openPayModal();
   })
   .catch(function(){
